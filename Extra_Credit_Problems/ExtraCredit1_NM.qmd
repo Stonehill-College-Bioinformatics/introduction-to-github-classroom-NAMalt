@@ -1,0 +1,127 @@
+---
+title: "Exam1_ExtraCredit_NM"
+format: html
+editor: visual
+author: Nick Maltais
+---
+
+## Chapter 4.4 Exercises
+
+Exercise 1: Why does this code not work?
+
+```{r}
+my_variable <- 10
+my_varıable
+#> Error: object 'my_varıable' not found
+```
+
+It isn't found because the two don't have the same name! The i is switched out for ı in the 2nd variable which doesn't exist.
+
+Exercise 2: Tweak each of the following R commands so that they run correctly:
+
+```{r}
+library(tidyverse)
+ggplot(dota = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+
+fliter(mpg, cyl = 8)
+filter(diamond, carat > 3)
+
+```
+
+The issue is with data being incorrectly spelled as "dota"
+
+```{r}
+library(tidyverse)
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+
+fliter(mpg, cyl = 8)
+filter(diamond, carat > 3)
+
+```
+
+## Chapter 19.4.4 Exercises
+
+Exercise 1: What’s the difference between if and ifelse()?
+
+The "if" statement is used for scalar values (single values) ifelse() is used for a vector of values and will tell you which elements in the vector (list) meet the criteria.
+
+Exercise 3: Implement a fizzbuzz function. It takes a single number as input. If the number is divisible by three, it returns “fizz”. If it’s divisible by five it returns “buzz”. If it’s divisible by three and five, it returns “fizzbuzz”. Otherwise, it returns the number. Make sure you first write working code before you create the function.
+
+```{r}
+fizzbuzz <- function(n) {
+  if (n %% 3 == 0 & n%%5 == 0){
+    return("Fizzbuzz")}
+  else if(n %% 3 == 0 ){
+    return("Fizz")}
+  else if(n %% 5 == 0){
+    return("Buzz")}
+  else {
+    return(n)}
+}
+
+fizzbuzz(30)
+fizzbuzz(10)
+fizzbuzz(9)
+fizzbuzz(77)
+
+
+```
+
+(This is a classic basic interview question)
+
+## Chapter 21.2.1 Exercises
+
+Exercise 3.2: Convert the nursery rhyme “ten in the bed” to a function. Generalise it to any number of people in any sleeping structure. (Had to look this rhyme up and went with this version)
+
+```{r}
+ten_in_the_bed <- function(n, sleepers, structure) {
+  for (i in n:1) { # Count down from n to 1
+    next_i <- i - 1 # The number left after one falls out
+    
+    #There is a different last verse so we need to check if the count is greater than 1
+    if (i > 1){
+      lyrics <- paste("There were", i, sleepers, "in the", structure,
+                      "And the little one said, 'Roll over! Roll over!'",
+                      "So they all rolled over and one fell out.",
+                      "Now there are", next_i, "left in the", structure, ".")
+    } 
+    
+    #This is used only for the final verse
+    else{
+      lyrics <- paste("There was 1", sleepers, "in the", structure, ",",
+                      "And the little one said, 'Alone at last!'") #Or sometimes they say goodnight!
+    }
+    
+    print(lyrics) 
+  }
+}
+
+# Testing with different scenarios
+ten_in_the_bed(5, "bears", "bed")
+ten_in_the_bed(3, "monsters", "closet")
+```
+
+Exercise 3.3: Convert the song “99 bottles of beer on the wall” to a function. Generalise to any number of any vessel containing any liquid on any surface.
+
+```{r}
+bottles <- function(n, liquid, surface){
+  for(i in n:1){ # Make a vector of the numbers n down to 1 to count down to
+    next_i <- i - 1 # Need this for when we "take one down and pass it around"
+    
+    #I've used this paste function in other classes before, it wasn't mentioned in this chapter
+    #It just allows you to combine strings and numbers into one string (character vector)
+    
+    lyrics <- paste(i, liquid, "on the", surface, ",", 
+                    i, liquid, ". Take one down, pass it around,", 
+                    next_i, liquid, "on the", surface, ".")
+    
+    print(lyrics)
+  }
+}
+
+bottles(5, "bottles of beer", "wall")
+bottles(7, "glasses of milk", "floor")
+
+```
