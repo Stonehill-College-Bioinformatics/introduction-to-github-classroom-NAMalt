@@ -145,6 +145,8 @@ Initial Plot: A scatter plot illustrating the relationship between engine displa
 # R
 ggplot(data = mpg, aes(x = displ, y = hwy)) + 
   geom_point(aes(color=class, shape=drv)) + 
+  geom_smooth(method = "loess", se = TRUE)+
+  facet_wrap(~cyl, nrow = 2, ncol = 2)+
   labs(title = "Engone Displacement vs. Highway MPG", 
        x = "Engine Size (liters)",
        y = "Highway MPG"
